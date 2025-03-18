@@ -1,0 +1,26 @@
+RewriteEngine On
+RewriteBase /quanlysinhvien/
+
+# Nếu không phải file hoặc thư mục thì rewrite
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite tất cả các request đến index.php
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+# Bảo vệ file .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Bảo vệ thư mục app
+<IfModule mod_rewrite.c>
+    RewriteRule ^app/ - [F,L]
+</IfModule>
+
+# Thiết lập charset mặc định
+AddDefaultCharset UTF-8
+
+# Tắt directory listing
+Options -Indexes 
